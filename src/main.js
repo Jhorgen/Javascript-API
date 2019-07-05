@@ -18,8 +18,9 @@ $(document).ready(function(){
 
     promise.then(function(response) {
       let body = JSON.parse(response);
-      console.log(body);
-      $('.output').text(body);
+      var keys = Object.values(body.meta);
+      console.log(keys);
+      $('.output').text(keys);
 
     });
   });
