@@ -25,6 +25,11 @@ $(document).ready(function(){
       medicalPromise.then(function(response){
         let body = JSON.parse(response);
         console.log(body.data);
+        console.log(JSON.stringify(body));
+
+        $('.output').text(JSON.stringify(body));
+
+
       });
 
 
