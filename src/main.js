@@ -7,31 +7,42 @@ import './styles.css';
 let doctorNotes = new DoctorInfo();
 
 $(document).ready(function(){
-  $(".inputForm").submit(function(event){
+  $('.nameForm').hide();
+  $('.medForm').hide();
+  $('.selectForm').change(function() {
+    if ($(this).val() === 'name') {
+      $('.nameForm').show();
+      $('.medForm').hide();
+    } else if ($(this).val() === 'medical') {
+      $('.medForm').show();
+      $('.nameForm').hide();
+    }
+  });
+
+  $(".nameForm").submit(function(event){
     event.preventDefault();
 
-    // let nameInput = $('#nameInput').val();
-    let medicalInput = $('#medicalInput').val();
+    let nameInput = $('#nameInput').val();
     console.log(medicalInput);
 
-    // let namePromise = doctorNotes.searchByName(nameInput);
-    // namePromise.then(function(response) {
-    //   let body = JSON.parse(response).data;
-    //   console.log(body);
-    //   $('.output').text(body);
-    // });
+    let namePromise = doctorNotes.searchByName(nameInput);
+    namePromise.then(function(response) {
+      let body = JSON.parse(response).data;
+      console.log(body);
+      $('.output').text(body);
+    });
+  });
 
-      let medicalPromise = doctorNotes.searchByMedical(medicalInput);
-      medicalPromise.then(function(response){
-        let body = JSON.parse(response);
-        console.log(body.data);
-        console.log(JSON.stringify(body));
+  let medicalInput = $('#medicalInput').val();
+  $(".medForm").submit(function(event){
+    event.preventDefault();
+    let medicalPromise = doctorNotes.searchByMedical(medicalInput);
+    medicalPromise.then(function(response){
+      let body = JSON.parse(response);
+      console.log(body.data);
 
-        $('.output').text(JSON.stringify(body));
-
-
-      });
-
+      $('.output').text(JSON.stringify(body));
 
     });
   });
+});
