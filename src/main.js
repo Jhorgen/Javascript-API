@@ -10,7 +10,6 @@ $(document).ready(function(){
     event.preventDefault();
     let nameInput = $('#nameInput').val();
     let symptom = $('#symptom').val();
-
     let Promise = doctorNotes.searchForDoctors(nameInput, symptom);
     Promise.then(function(response){
       let body = JSON.parse(response).data;
@@ -20,18 +19,11 @@ $(document).ready(function(){
       } else {
         $('.output').html("Your results are:");
         body.forEach(function(searchThis){
-
           let nameSearch = searchThis.profile.first_name + ' ' + searchThis.profile.last_name + '<br>' + 'Name of practice:'  + ' ' + searchThis.practices[0].name;
-
-          let symptomSearch = searchThis.profile.title + "<br>" + searchThis.specialties[0].description;
-
-
-          let docAddress = searchThis.practices[0].visit_address.street + ' ' +
-          searchThis.practices[0].visit_address.zip;
-
+          let symptomSearch = searchThis.profile.title + "<br>" + 'Info:' + ' ' + searchThis.specialties[0].description;
+          let docAddress = searchThis.practices[0].visit_address.street + ' ' +  searchThis.practices[0].visit_address.zip;
           $('.output').append(`<li> ${nameSearch} ${symptomSearch} <br> Address: ${docAddress}</li> <br>`);
-
-          });
+        });
       }
     });
   });

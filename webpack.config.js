@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+
 
 module.exports = {
   entry: './src/main.js',
@@ -19,6 +21,7 @@ module.exports = {
       template: './src/index.html',
       inject: 'body',
     }),
+    new Dotenv()
   ],
   module: {
     rules: [
@@ -36,17 +39,6 @@ module.exports = {
           /spec/,
         ],
         loader: 'eslint-loader',
-      },
-      {
-        test: /\.js$/,
-        exclude: [
-          /node_modules/,
-          /spec/
-        ],
-        loader: "babel-loader",
-        options: {
-          presets: ['es2015']
-        },
       },
     ],
   },
