@@ -20,7 +20,10 @@ $(document).ready(function(){
         $('.output').html("<p>Your results are:</p>");
         body.forEach(function(searchThis){
           let nameSearch = searchThis.profile.first_name + ' ' + searchThis.profile.last_name + '<br>' + 'Name of practice:'  + ' ' + searchThis.practices[0].name;
-          let symptomSearch = searchThis.profile.title + "<br>" + 'Info:' + ' ' + searchThis.specialties[0].description;
+          let symptomSearch = searchThis.profile.title + "<br>" + 'Info:' + ' ';
+          if(searchThis.specialties[0]) {
+            symptomSearch += searchThis.specialties[0].description
+          }
           let docAddress = searchThis.practices[0].visit_address.street + ' ' +  searchThis.practices[0].visit_address.zip;
           $('.output').append(`<li> ${nameSearch} ${symptomSearch} <br> Address: ${docAddress}</li> <br>`);
         });
